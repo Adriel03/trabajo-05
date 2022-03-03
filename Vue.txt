@@ -1,0 +1,54 @@
+ <script type="module">
+	import { createApp } from 'vue/dist/vue.esm-bundler.js'
+	import App from './src/App.vue'
+	createApp({
+		data(){
+			return titleClass: 'title'
+		}
+	})
+	createAppB({
+	  data() {
+		return {
+		  count: 0
+		}
+	  },
+	  methods: {
+		increment() {
+		  this.count++
+		}
+	  }
+}).mount('#app')
+	</script>
+
+<script>
+	import { createApp } from 'vue/dist/vue.esm-bundler.js'
+	import App from './src/App.vue'
+	var one = new Vue({
+		el: '#vue-T',
+		data:{
+			
+		},
+		methods:{
+		
+		},
+		computed:{
+		
+		}
+		
+	});
+	
+	var two = new Vue({
+		el: '#vue-Button',
+		data:{
+			count: 0
+		},
+		methods:{
+			increment: function(){
+				return count++
+			}
+		},
+		computed:{
+		
+		}
+		
+	});

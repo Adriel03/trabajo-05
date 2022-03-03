@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kibutsuji Muzan</title>
+  </head>
+  <body>
+  <div>
+	<h1> El primogenito </h1>
+	<h2> Eres: </h2>
+	<p><br></p>
+	<div id="app1">
+		<button @click="incrementC">Cazador: {{ cazadores }}</button>
+		<button @click="incrementD">Demonio: {{ demonios }}</button>
+	</div>
+	
+	<div id="pregunta">
+		<p> ¿Lo haz conocido?{{text}}</p>
+		<input v-model="text">
+	</div>
+	<div id="respuesta">
+		<button @click="toggle">Cambio</button>
+		<h3 v-if="awesome">A los demonios les puede ir bien o mal dependiendo del humor del señor Muzan. Si no le parece que han hecho suficiente poddría asesinarlos. Por otro lado si se siente con las ganas de recompensarlos les dará un poco de su sangre, lo que aumenta sus poderese significativamente.</h3>
+		<h3 v-else>Los humanos pueden correr con dos tipos de suerte. Por un lado el señor Muzan  es muy cuidadoso y ouede cinvivir con ellos sin problemas para mantenerse oculto. Por otro, él no tienen escrupulo alguno en asesinarlos si ve una oportunidad.  </h3>
+	</div>
+	<div id="lunas">
+	  <p>¿Cuales son las lunas Superiores actualmente?</p>
+	  <input v-model="newTodo" @keyup.enter="addTodo">
+	  <button @click="addTodo">Agregar Luna</button>
+	  <ul>
+		<li v-for="todo in filteredTodos" :key="todo.id">
+			<input type="checkbox" v-model="todo.done">
+			<span class= "{ done: todo.done }"> {{ todo.text }}</span>
+			<button @click="removeTodo(todo)">X</button>
+		</li>
+	  </ul>
+		<button @click="hideCompleted = !hideCompleted">
+		{{ hideCompleted ? 'Mostrar' : 'Ocultar' }}
+		</button>
+	</div>
+	<div id="parrafo">
+		<p ref="p">texto</p>
+	</div>
+  </div>
+     <script type="module">
+	import { createApp } from 'vue/dist/vue.esm-bundler.js'
+	import App from './App.vue'
+	
+	
+	const c1 = createApp({
+	  data() {
+		return {
+		  demonios: 0,
+		  cazadores: 0
+		}
+	  },
+	  methods: {
+		incrementD() {
+		  this.demonios++
+		},
+		incrementC() {
+		  this.cazadores++
+		}
+	  }
+	})
+	c1.mount('#app1')
+	
+	const c3 = createApp({
+	  data() {
+		return {
+		  text: ''
+		}
+	  }
+	})
+	c3.mount('#pregunta')
+	
+	const c4 = createApp({
+	  data() {
+		return {
+		  awesome: true
+		}
+	  },
+	  methods: {
+		toggle() {
+		  this.awesome = !this.awesome
+		}
+	  }
+	})
+	c4.mount('#respuesta')
+
+	let id=0;
+	
+	const c5 = createApp({
+	  data() {
+		return {
+		  newTodo: '',
+		  hideCompleted: false,
+		  todos: [
+			{ id: id++, text: 'Primera Superior Kokushibo', done:true},
+			{ id: id++, text: 'Segunda Superior Douma', done: true },
+			{ id: id++, text: 'Tercera Superior Akasa', done: true }
+		  ]
+		}
+	  },
+	  computed: {
+		filteredTodos() {
+		  return this.hideCompleted
+			? this.todos.filter((t) => !t.done)
+			: this.todos
+		}
+	  },
+	  methods: {
+		addTodo() {
+		  this.todos.push({ id: id++, text: this.newTodo,  done:false})
+		  this.newTodo = ''
+		},
+		removeTodo(todo) {
+		  this.todos = this.todos.filter((t) => t !== todo)
+		}
+	  }
+	})
+	c5.mount('#lunas')
+	
+	const c6 = createApp({
+		mounted(){
+			this.$refs.p.textContent = 'Las lunas superiores fueron creadas con dos propositos especificos. El primero era encontrar el Lirio de Araña Azul el cual quiere para conseguir un cuerpo perfecto capaz de resistir a la luz del sol. El segundo motivo es para atacar y destruir a la asociacion de  cazadores de demonios y a sus pilares.'
+		}
+	})
+	c6.mount('#parrafo')
+
+
+	</script>
+  </body>
+</html>
